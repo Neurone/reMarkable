@@ -1,0 +1,10 @@
+# Author: Giuseppe Bertone
+[Unit]
+Description=Timer to randomize reMarkable screens (poweroff, sleep, etc.) every 5 minutes
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=5min
+
+[Install]
+WantedBy=multi-user.target

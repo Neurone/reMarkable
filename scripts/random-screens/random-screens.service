@@ -1,0 +1,10 @@
+[Unit]
+Description=Set random images for splash screens
+
+[Service]
+Type=simple
+ExecStart=/usr/share/remarkable/scripts/set-random-screens.sh
+After=home.mount
+
+[Install]
+WantedBy=multi-user.target
