@@ -9,9 +9,10 @@ $ mkdir -p /usr/share/remarkable/scripts
 $ mkdir -p /home/root/customization/images/poweroff
 $ mkdir -p /home/root/customization/images/poweroff
 ```
-3. Copy the script under right position
+3. Copy the script into the correct folder and set it executable
 ```bash
 $ cp set-random-screens.sh /usr/share/remarkable/scripts/
+$ chmod +x /usr/share/remarkable/scripts/set-random-screens.sh
 ```
 4. Copy some images under dedicated folders
 ```bash
