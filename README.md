@@ -57,4 +57,4 @@ Apr 20 10:02:35 remarkable systemd[1]: Started Set random images for splash scre
 
 ## Changing the timer
 
-If you want to change the frequency of the refresh modifying the value `OnUnitActiveSec` inside the file `/usr/lib/systemd/user/random-screens.timer`.
+You can change the frequency of the refresh modifying the value `OnUnitActiveSec` inside the file `/usr/lib/systemd/user/random-screens.timer` and restarting the reMarkable.
