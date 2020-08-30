@@ -4,7 +4,7 @@ Script tested on version 2.0.x and 2.1.x
 
 ## Automatically change your poweroff and suspend screens every 5 minutes
 
-1. Connect to your reMarkable via ssh and copy this repo your home folder, i.e. I put all artifacts under `/home/root/customization`
+1. Connect to your reMarkable via ssh and copy this repo into your home folder, i.e. I put all artifacts under `/home/root/customization`
 
 2. Create dedicated folders for your scripts and images
 ```bash
