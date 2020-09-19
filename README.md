@@ -1,54 +1,60 @@
 # reMarkable
+
 Customizations for reMarkable Paper Tablet.
 Script tested on version 2.0.x and 2.1.x
 
 ## Automatically change your poweroff and suspend screens every 5 minutes
 
-### Installation script
-
-_Soon :)_
-
 ### Manual installation
 
-1. Connect to your reMarkable via ssh and copy this repo into a temp folder i.e. `/home/root/temp/reMarkable-1.0.0`
+- Connect to your reMarkable via ssh and copy this repo into a temp folder i.e. `/home/root/temp/reMarkable-1.0.0`
 
-2. From the temp folder, create dedicated folders for your scripts and images
+- From the temp folder, create dedicated folders for your scripts and images
+
 ```bash
-$ cd /home/root/temp/reMarkable-1.0.0
-$ mkdir -p /usr/share/remarkable/scripts
-$ mkdir -p /home/root/customization/images/poweroff
-$ mkdir -p /home/root/customization/images/suspended
-```
-3. Copy the script into the correct folder and set it executable
-```bash
-$ cp scripts/random-screens/set-random-screens.sh /usr/share/remarkable/scripts/
-$ chmod +x /usr/share/remarkable/scripts/set-random-screens.sh
+cd /home/root/temp/reMarkable-1.0.0
+mkdir -p /usr/share/remarkable/scripts
+mkdir -p /home/root/customization/images/poweroff
+mkdir -p /home/root/customization/images/suspended
 ```
 
-4. Copy some images under dedicated folders
+- Copy the script into the correct folder and set it executable
+
 ```bash
-$ cp images/poweroff/* /home/root/customization/images/poweroff
-$ cp images/suspended/* /home/root/customization/images/suspended
+cp scripts/random-screens/set-random-screens.sh /usr/share/remarkable/scripts/
+chmod +x /usr/share/remarkable/scripts/set-random-screens.sh
 ```
+
+- Copy some images under dedicated folders
+
+```bash
+cp images/poweroff/* /home/root/customization/images/poweroff
+cp images/suspended/* /home/root/customization/images/suspended
+```
+
 Name of the files is not important: every image in the folder will be elegible to be selected randomly by the script. You can find very good example in this repo.
 _Note: I found them on Facebook but I can't remember the author anymore, I'm sorry. If you find him/her please PR this repo._
 
-5. Copy service and timer in the correct folder
+- Copy service and timer in the correct folder
+
 ```bash
 cp scripts/random-screens/random-screens.service /usr/lib/systemd/user/random-screens.service
 cp scripts/random-screens/random-screens.timer /usr/lib/systemd/user/random-screens.timer
 ```
+
 You can now delete your temp folder.
 
-4) Enable service and timer
+- Enable service and timer
+
 ```bash
-$ systemctl enable /usr/lib/systemd/user/random-screens.timer
-$ systemctl enable /usr/lib/systemd/user/random-screens.service
+systemctl enable /usr/lib/systemd/user/random-screens.timer
+systemctl enable /usr/lib/systemd/user/random-screens.service
 ```
 
-5) Restart your reMarkable
+- Restart your reMarkable
 
-6) You should now see one of your custom suspend and poweroff image in place. To do some troubleshooting, you can use these commands:
+- You should now see one of your custom suspend and poweroff image in place. To do some troubleshooting, you can use these commands:
+
 ```bash
 $ systemctl list-timers
 NEXT                         LEFT          LAST                         PASSED  UNIT                         ACTIVATES
@@ -64,6 +70,10 @@ $ systemctl status random-screens.service
 
 Apr 20 10:02:35 remarkable systemd[1]: Started Set random images for splash screens.
 ```
+
+### Installation script
+
+WIP :)
 
 ## Changing the timer
 
