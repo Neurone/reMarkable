@@ -1,7 +1,8 @@
 # reMarkable
 
 Customizations for reMarkable Paper Tablet.
-Script tested without problem on version 2.0.x and 2.1.x. With 2.11.x substitution of suspend image does not work, I need to investigate why.
+Script tested without problem on version 2.0.x and 2.1.x.
+With 2.11.x substitution of suspend image does not work, I need to investigate why.
 
 ## Automatically change your poweroff and suspend screens every 5 minutes
 
