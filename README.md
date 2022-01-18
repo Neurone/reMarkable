@@ -2,7 +2,8 @@
 
 Customizations for reMarkable Paper Tablet.
 Script tested without problem on version 2.0.x and 2.1.x.
-With 2.11.x substitution of suspend image does not work, I need to investigate why.
+
+With 2.11.x images are read only at startup, so to see the next image actually need to restart the reMarkable. This means that suspend image cannot be changed on the fly anymore. I will explore the possibility to reload the interface in memory, but only if I can find a way to do it during sleep time and not when the user is actively using the device.
 
 ## Automatically change your poweroff and suspend screens every 5 minutes
 
