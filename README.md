@@ -1,13 +1,13 @@
 # reMarkable
 
 Customizations for reMarkable Paper Tablet.
-Script tested on version 2.0.x and 2.1.x
+Script tested without problem on version 2.0.x and 2.1.x. With 2.11.x substitution of suspend image does not work, I need to investigate why.
 
 ## Automatically change your poweroff and suspend screens every 5 minutes
 
 ### Manual installation
 
-- Connect to your reMarkable via ssh and copy this repo into a temp folder i.e. `/home/root/temp/reMarkable-1.0.0`
+- Connect to your reMarkable via ssh and copy this repo into a temp folder i.e. `/home/root/temp/reMarkable-1.0.1`
 
 - From the temp folder, create dedicated folders for your scripts and images
 
@@ -40,6 +40,13 @@ _Note: I found them on Facebook but I can't remember the author anymore, I'm sor
 ```bash
 cp scripts/random-screens/random-screens.service /usr/lib/systemd/user/random-screens.service
 cp scripts/random-screens/random-screens.timer /usr/lib/systemd/user/random-screens.timer
+```
+
+- Save original images
+
+```bash
+cp /usr/share/remarkable/poweroff.png /usr/share/remarkable/poweroff.original.png
+cp /usr/share/remarkable/suspended.png /usr/share/remarkable/suspended.original.png
 ```
 
 You can now delete your temp folder.
