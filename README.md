@@ -3,7 +3,7 @@
 Customizations for reMarkable and reMarkable 2 Paper Tablet.
 Script tested without problem on version `2.0.x` and `2.1.x`.
 
-With `2.11.x` images are read only on startup, so to actually see the next image you need to restart the reMarkable. This means that suspend image cannot be changed on the fly anymore, but you need to restart to see the new suspend image. I will explore the possibility to reload the interface in memory, but only if I can find a way to do it during sleep time and not when the user is actively using the device.
+With `2.11.x` image files are read only during startup, they are not hot loaded from the filesystem anymore, so to actually see the next image you need to restart the reMarkable. This means that even suspend image cannot be changed on the fly anymore, but you need to restart to see the new suspend image. I will explore the possibility to reload the interface in memory, but only if I can find a way to do it during sleep time and not when the user is actively using the device.
 
 ## Automatically change your poweroff and suspend screens every 5 minutes
 
