@@ -14,7 +14,7 @@ With `2.11.x` image files are read only during startup, they are not hot loaded 
 - From the temp folder, create dedicated folders for your scripts and images
 
 ```bash
-cd /home/root/temp/reMarkable-1.0.0
+cd /home/root/temp/reMarkable-1.0.1
 mkdir -p /usr/share/remarkable/scripts
 mkdir -p /home/root/customization/images/poweroff
 mkdir -p /home/root/customization/images/suspended
