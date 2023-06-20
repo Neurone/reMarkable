@@ -5,7 +5,7 @@ Scripts tested and working on version `2.0.x`, `2.1.x`, `2.11.x` and `3.4.x`
 
 ## Automatically change your poweroff and suspend screens every 5 minutes
 
-Starting with version `2.11.x` and above (`3.x` included), ReMarkable loads screen images during the startup only, so it does not hot load from the filesystem anymore: you need to restart the device to see the new randomly selected image. This means even the suspended image cannot be changed on the fly anymore, and you can see the new image only after a restart.
+Starting with version `2.11.x` and above (`3.x` included), ReMarkable loads the suspend screen image during the startup only, so it does not hot load from the filesystem anymore: you need to restart the device to see the new randomly selected image.
 
 I will explore the possibility of reloading the interface in memory. I already found how to reload the entire UI, but I will apply this feature only if I can find a way to do it during the device's sleep time rather than when the user is actively using it.
 
@@ -16,6 +16,8 @@ After the installation of the script, every image in the following folders is el
 /home/root/customization/images/poweroff
 /home/root/customization/images/suspended
 ```
+
+There is a size limit for the images you can use. I don't know the exact size, but with some trials and errors I tested images up to `310` Kb without problems. I was not able to load images bigger than `600` Kb, so I removed them from the repo.
 
 I'm sorry I cannot give credits for the beautiful images included by default in the scripts.  I found them on Facebook but I can't find the author anymore. If you find the author, plase send a PR to this repo.
 
