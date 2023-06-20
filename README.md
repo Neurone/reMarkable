@@ -1,20 +1,21 @@
 # reMarkable
 
 Customizations for reMarkable and reMarkable 2 Paper Tablet.
-Script tested without problem on version `2.0.x`, `2.1.x` and `2.11.x`
-
-With `2.11.x` image files are read only during startup, they are not hot loaded from the filesystem anymore, so to actually see the next image you need to restart the reMarkable. This means that even suspend image cannot be changed on the fly anymore, but you need to restart to see the new suspend image. I will explore the possibility to reload the interface in memory, but only if I can find a way to do it during sleep time and not when the user is actively using the device.
+Scripts tested and working on version `2.0.x`, `2.1.x`, `2.11.x` and `3.4.x`
 
 ## Automatically change your poweroff and suspend screens every 5 minutes
 
+Starting with version `2.11.x` and above (`3.x` included), ReMarkable loads screen images during the startup only, so it does not hot load from the filesystem anymore: you need to restart the device to see the new randomly selected image. This means even the suspended image cannot be changed on the fly anymore, and you can see the new image only after a restart.
+
+I will explore the possibility of reloading the interface in memory. I already found how to reload the entire UI, but I will apply this feature only if I can find a way to do it during the device's sleep time rather than when the user is actively using it.
+
 ### Manual installation
 
-- Connect to your reMarkable via ssh and copy this repo into a temp folder i.e. `/home/root/temp/reMarkable-1.0.1`
+- Connect to your reMarkable via ssh and copy this repo into a temp folder (i.e., `/home/root/temp/reMarkable-customizations`)
 
-- From the temp folder, create dedicated folders for your scripts and images
+- Create dedicated folders for your scripts and images
 
 ```bash
-cd /home/root/temp/reMarkable-1.0.1
 mkdir -p /usr/share/remarkable/scripts
 mkdir -p /home/root/customization/images/poweroff
 mkdir -p /home/root/customization/images/suspended
@@ -23,25 +24,25 @@ mkdir -p /home/root/customization/images/suspended
 - Copy the script into the correct folder and set it executable
 
 ```bash
-cp scripts/random-screens/set-random-screens.sh /usr/share/remarkable/scripts/
+cp /home/root/temp/reMarkable-customizations/scripts/random-screens/set-random-screens.sh /usr/share/remarkable/scripts/
 chmod +x /usr/share/remarkable/scripts/set-random-screens.sh
 ```
 
 - Copy some images under dedicated folders
 
 ```bash
-cp images/poweroff/* /home/root/customization/images/poweroff
-cp images/suspended/* /home/root/customization/images/suspended
+cp /home/root/temp/reMarkable-customizations/images/poweroff/* /home/root/customization/images/poweroff
+cp /home/root/temp/reMarkable-customizations/images/suspended/* /home/root/customization/images/suspended
 ```
 
-Name of the files is not important: every image in the folder will be elegible to be selected randomly by the script. You can find very good example in this repo.
-_Note: I found them on Facebook but I can't remember the author anymore, I'm sorry. If you find him/her please PR this repo._
+Name of the files is not important: every image in the folder will be eligible to be selected randomly by the script. You can find very good example in this repo.
+_Note: I found them on Facebook but I can't find the author anymore, I'm sorry. If you find them, please send a PR to this repo._
 
 - Copy service and timer in the correct folder
 
 ```bash
-cp scripts/random-screens/random-screens.service /usr/lib/systemd/user/random-screens.service
-cp scripts/random-screens/random-screens.timer /usr/lib/systemd/user/random-screens.timer
+cp /home/root/temp/reMarkable-customizations/scripts/random-screens/random-screens.service /usr/lib/systemd/user/random-screens.service
+cp /home/root/temp/reMarkable-customizations/scripts/random-screens/random-screens.timer /usr/lib/systemd/user/random-screens.timer
 ```
 
 - Save original images
@@ -86,4 +87,4 @@ WIP :)
 
 ## Changing the timer
 
-You can change the frequency of the refresh modifying the value `OnUnitActiveSec` inside the file `/usr/lib/systemd/user/random-screens.timer` and then restarting your reMarkable.
+You can change the frequency of the refresh by modifying the value `OnUnitActiveSec` inside the file `/usr/lib/systemd/user/random-screens.timer` and then restarting your reMarkable.
