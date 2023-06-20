@@ -9,7 +9,7 @@ if [ -d $POWEROFF_IMAGES_DIR ]; then
         POWEROFF_FILE=$(shuf -n1 -e $POWEROFF_IMAGES_DIR/*)
     fi;
 fi
-ln -sf $POWEROFF_FILE /usr/share/remarkable/poweroff.png
+cp $POWEROFF_FILE /usr/share/remarkable/poweroff.png
 
 SUSPENDED_IMAGES_DIR=$IMAGES_DIR/suspended
 SUSPENDED_FILE=/usr/share/remarkable/suspended.original.png
@@ -19,4 +19,4 @@ if [ -d $SUSPENDED_IMAGES_DIR ]; then
         SUSPENDED_FILE=$(shuf -n1 -e $SUSPENDED_IMAGES_DIR/*)
     fi;
 fi
-ln -sf $SUSPENDED_FILE /usr/share/remarkable/suspended.png
+cp $SUSPENDED_FILE /usr/share/remarkable/suspended.png
