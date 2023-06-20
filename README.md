@@ -17,8 +17,6 @@ After the installation of the script, every image in the following folders is el
 /home/root/customization/images/suspended
 ```
 
-There is a size limit for the images you can use. I don't know the exact size, but with some trials and errors I tested images up to `310` Kb without problems. I was not able to load images bigger than `600` Kb, so I removed them from the repo.
-
 I'm sorry I cannot give credits for the beautiful images included by default in the scripts.  I found them on Facebook but I can't find the author anymore. If you find the author, plase send a PR to this repo.
 
 ### Manual installation
