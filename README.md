@@ -3,21 +3,18 @@
 Customizations for reMarkable and reMarkable 2 Paper Tablet.
 Scripts tested and working on version `2.0.x`, `2.1.x`, `2.11.x` and `3.4.x`
 
-## Automatically change your poweroff and suspend screens every 5 minutes
+## Automatically change your power off and suspend screens every 5 minutes
 
-Starting with version `2.11.x` and above (`3.x` included), ReMarkable loads the suspend screen image during the startup only, so it does not hot load from the filesystem anymore: you need to restart the device to see the new randomly selected image.
-
-I will explore the possibility of reloading the interface in memory. I already found how to reload the entire UI, but I will apply this feature only if I can find a way to do it during the device's sleep time rather than when the user is actively using it.
-
-### List of images
-After the installation of the script, every image in the following folders is eligible to be randomly selected for the poweroff or the suspended screen, accordingly to the dedicated folder. The name of the files is not relevant.
+After installing this script, every image in the following folders is eligible to be randomly selected every 5 minutes for the power off or the suspended screen, accordingly to the dedicated folder. The name of the files is not relevant.
 
 ```bash
 /home/root/customization/images/poweroff
 /home/root/customization/images/suspended
 ```
 
-I'm sorry I cannot give credits for the beautiful images included by default in the scripts.  I found them on Facebook but I can't find the author anymore. If you find the author, plase send a PR to this repo.
+This repo comes with some beautiful default images. I'm sorry I cannot give credits for them, but I found them on Facebook long time ago and I can't find the author anymore. If you find the author, please send a PR to this repo.
+
+Note about the suspend screen. Starting with version `2.11.x` and above (`3.x` included), ReMarkable loads the suspend screen image during the startup only, so it does not hot load from the filesystem anymore: you need to restart the device to see the new randomly selected image. I will explore the possibility of reloading the interface in memory. I already found how to reload the entire UI, but I will apply this feature only if I can find a way to do it during the device's sleep time rather than when the user is actively using it.
 
 ### Manual installation
 
@@ -100,11 +97,11 @@ systemctl enable /usr/lib/systemd/user/random-screens.service
 
 - You should now see your custom suspend and poweroff image in place
 
-### Installation script
+### Automatic installation
 
 WIP :)
 
-### Change the frequecy of the updates
+### Change the frequency of the updates
 
 You can change the frequency of the refresh by modifying the value `OnUnitActiveSec` inside the file `/usr/lib/systemd/user/random-screens.timer` and then restarting your reMarkable.
 
@@ -121,7 +118,7 @@ Wed 2023-06-21 19:16:32 UTC  23h left      Tue 2023-06-20 19:12:49 UTC  28min ag
 2 timers listed.
 ```
 
-You can also check the status of the `random-screens` service. You should see it was activated within the last 5 minutes (or the frequency you customly set) and without errors.
+You can also check the status of the `random-screens` service. You should see it was activated within the last 5 minutes (or your custom set frequency) and without errors.
 
 ```bash
 ❯ systemctl status random-screens.service
