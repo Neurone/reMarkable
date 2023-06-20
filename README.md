@@ -9,9 +9,41 @@ Starting with version `2.11.x` and above (`3.x` included), ReMarkable loads scre
 
 I will explore the possibility of reloading the interface in memory. I already found how to reload the entire UI, but I will apply this feature only if I can find a way to do it during the device's sleep time rather than when the user is actively using it.
 
+### List of images
+After the installation of the script, every image in the following folders is eligible to be randomly selected for the poweroff or the suspended screen, accordingly to the dedicated folder. The name of the files is not relevant.
+
+```bash
+/home/root/customization/images/poweroff
+/home/root/customization/images/suspended
+```
+
+I'm sorry I cannot give credits for the beautiful images included by default in the scripts.  I found them on Facebook but I can't find the author anymore. If you find the author, plase send a PR to this repo.
+
 ### Manual installation
 
-- Connect to your reMarkable via ssh and copy this repo into a temp folder (i.e., `/home/root/temp/reMarkable-customizations`)
+- Clone this repo
+
+```bash
+git clone git@github.com:Neurone/reMarkable.git reMarkable-customizations
+```
+
+- Connect to your reMarkable via SSH (via USB or WiFi, change the IP accordingly) and copy this repo into a temp folder
+
+```bash
+scp -r reMarkable-customizations root@10.11.99.1:/home/root/temp-reMarkable-customizations
+```
+
+- Login into your reMarkable
+
+```bash
+❯ ssh root@10.11.99.1
+root@10.11.99.1's password:
+ｒｅＭａｒｋａｂｌｅ
+╺━┓┏━╸┏━┓┏━┓   ┏━┓╻ ╻┏━╸┏━┓┏━┓
+┏━┛┣╸ ┣┳┛┃ ┃   ┗━┓┃ ┃┃╺┓┣━┫┣┳┛
+┗━╸┗━╸╹┗╸┗━┛   ┗━┛┗━┛┗━┛╹ ╹╹┗╸
+reMarkable: ~/
+```
 
 - Create dedicated folders for your scripts and images
 
@@ -24,35 +56,36 @@ mkdir -p /home/root/customization/images/suspended
 - Copy the script into the correct folder and set it executable
 
 ```bash
-cp /home/root/temp/reMarkable-customizations/scripts/random-screens/set-random-screens.sh /usr/share/remarkable/scripts/
+cp /home/root/temp-reMarkable-customizations/scripts/random-screens/set-random-screens.sh /usr/share/remarkable/scripts/
 chmod +x /usr/share/remarkable/scripts/set-random-screens.sh
 ```
 
 - Copy some images under dedicated folders
 
 ```bash
-cp /home/root/temp/reMarkable-customizations/images/poweroff/* /home/root/customization/images/poweroff
-cp /home/root/temp/reMarkable-customizations/images/suspended/* /home/root/customization/images/suspended
+cp /home/root/temp-reMarkable-customizations/images/poweroff/* /home/root/customization/images/poweroff
+cp /home/root/temp-reMarkable-customizations/images/suspended/* /home/root/customization/images/suspended
 ```
-
-Name of the files is not important: every image in the folder will be eligible to be selected randomly by the script. You can find very good example in this repo.
-_Note: I found them on Facebook but I can't find the author anymore, I'm sorry. If you find them, please send a PR to this repo._
 
 - Copy service and timer in the correct folder
 
 ```bash
-cp /home/root/temp/reMarkable-customizations/scripts/random-screens/random-screens.service /usr/lib/systemd/user/random-screens.service
-cp /home/root/temp/reMarkable-customizations/scripts/random-screens/random-screens.timer /usr/lib/systemd/user/random-screens.timer
+cp /home/root/temp-reMarkable-customizations/scripts/random-screens/random-screens.service /usr/lib/systemd/user/random-screens.service
+cp /home/root/temp-reMarkable-customizations/scripts/random-screens/random-screens.timer /usr/lib/systemd/user/random-screens.timer
 ```
 
-- Save original images
+- Save original images, without overwriting previous original files
 
 ```bash
-cp /usr/share/remarkable/poweroff.png /usr/share/remarkable/poweroff.original.png
-cp /usr/share/remarkable/suspended.png /usr/share/remarkable/suspended.original.png
+yes n | cp -i /usr/share/remarkable/poweroff.png /usr/share/remarkable/poweroff.original.png
+yes n | cp -i /usr/share/remarkable/suspended.png /usr/share/remarkable/suspended.original.png
 ```
 
-You can now delete your temp folder.
+- You can now delete your temp folder
+
+```bash
+rm -rf /home/root/temp-reMarkable-customizations
+```
 
 - Enable service and timer
 
@@ -61,30 +94,44 @@ systemctl enable /usr/lib/systemd/user/random-screens.timer
 systemctl enable /usr/lib/systemd/user/random-screens.service
 ```
 
-- Restart your reMarkable
+- Restart your reMarkable (random images are selected)
 
-- You should now see one of your custom suspend and poweroff image in place. To do some troubleshooting, you can use these commands:
+- Restart again your reMarkable (previously selected random images are loaded)
 
-```bash
-$ systemctl list-timers
-NEXT                         LEFT          LAST                         PASSED  UNIT                         ACTIVATES
-Mon 2020-04-20 10:07:35 UTC  4min 33s left Mon 2020-04-20 10:02:34 UTC  26s ago random-screens.timer         random-screens.service
-Mon 2020-04-20 10:16:34 UTC  13min left    n/a                          n/a     systemd-tmpfiles-clean.timer systemd-tmpfiles-clean.service
-
-$ systemctl status random-screens.service
-● random-screens.service - Set random images for splash screens
-   Loaded: loaded (/usr/lib/systemd/user/random-screens.service; enabled; vendor preset: enabled)
-   Active: inactive (dead) since Mon 2020-04-20 10:02:35 UTC; 2min 21s ago
-  Process: 332 ExecStart=/usr/share/remarkable/scripts/set-random-screens.sh (code=exited, status=0/SUCCESS)
- Main PID: 332 (code=exited, status=0/SUCCESS)
-
-Apr 20 10:02:35 remarkable systemd[1]: Started Set random images for splash screens.
-```
+- You should now see your custom suspend and poweroff image in place
 
 ### Installation script
 
 WIP :)
 
-## Changing the timer
+### Change the frequecy of the updates
 
 You can change the frequency of the refresh by modifying the value `OnUnitActiveSec` inside the file `/usr/lib/systemd/user/random-screens.timer` and then restarting your reMarkable.
+
+### Troubleshooting
+
+To do some troubleshooting, you can use the following command to check the active timers. You should see `random-screens.timer` listed there, without error.
+
+```bash
+❯ systemctl list-timers --all
+NEXT                         LEFT          LAST                         PASSED      UNIT                         ACTIVATES
+Tue 2023-06-20 19:44:06 UTC  2min 53s left Tue 2023-06-20 19:39:06 UTC  2min 6s ago random-screens.timer         random-screens.service
+Wed 2023-06-21 19:16:32 UTC  23h left      Tue 2023-06-20 19:12:49 UTC  28min ago   systemd-tmpfiles-clean.timer systemd-tmpfiles-clean.service
+
+2 timers listed.
+```
+
+You can also check the status of the `random-screens` service. You should see it was activated within the last 5 minutes (or the frequency you customly set) and without errors.
+
+```bash
+❯ systemctl status random-screens.service
+● random-screens.service - Set random images for splash screens
+     Loaded: loaded (/usr/lib/systemd/user/random-screens.service; enabled; vendor preset: disabled)
+     Active: inactive (dead) since Tue 2023-06-20 19:43:08 UTC; 38s ago
+TriggeredBy: ● random-screens.timer
+    Process: 175 ExecStart=/usr/share/remarkable/scripts/set-random-screens.sh (code=exited, status=0/SUCCESS)
+   Main PID: 175 (code=exited, status=0/SUCCESS)
+
+Jun 20 19:43:08 reMarkable systemd[1]: Started Set random images for splash screens.
+Jun 20 19:43:08 reMarkable systemd[1]: random-screens.service: Succeeded.
+```
